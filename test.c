@@ -1,99 +1,78 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#include "SeqList.h"
+#include "SList.h"
 
-void test1(void)
+void SLTest1(void)
 {
-	SeqList sl = { 0 };
-	SeqListInit(&sl);
+	SListNode* plist = NULL;
 
-	SeqListPushBack(&sl, 1);
-	SeqListPushBack(&sl, 2);
-	SeqListPushBack(&sl, 3);
-	SeqListPushBack(&sl, 4);
-	SeqListPushBack(&sl, 5);
-	SeqListPushBack(&sl, 6);
-	SeqListPrint(&sl);
+	SLPrint(plist);
 
-	SeqListPopBack(&sl);
-	SeqListPopBack(&sl);
+	SLPushBack(&plist, 1);
+	SLPushBack(&plist, 2);
+	SLPushBack(&plist, 3);
+	SLPrint(plist);
+	SLPushBack(&plist, 4);
+	SLPushBack(&plist, 5);
+	SLPrint(plist);
 
-	SeqListPrint(&sl);
+	SLPopBack(&plist);
+	SLPopBack(&plist);
+	SLPopBack(&plist);
+	SLPrint(plist);
 
-	SeqListDestroy(&sl);
+	SLPopBack(&plist);
+	SLPopBack(&plist);
+	SLPrint(plist);
+
+	SLPopBack(&plist);
 }
 
-void test2(void)
+void SLTest2(void)
 {
-	SeqList sl = { 0 };
-	SeqListInit(&sl);
+	SListNode* plist = NULL;
 
-	SeqListPushBack(&sl, 5);
-	SeqListPushBack(&sl, 6);
+	SLPushFront(&plist, 1);
+	SLPushFront(&plist, 2);
+	SLPushFront(&plist, 3);
+	SLPushFront(&plist, 4);
+	SLPushFront(&plist, 5);
 
-	SeqListPushFront(&sl, 4);
-	SeqListPushFront(&sl, 3);
-	SeqListPushFront(&sl, 2);
-	SeqListPushFront(&sl, 1);
+	SLPrint(plist);
 
-	SeqListPrint(&sl);
-
-	SeqListPopFront(&sl);
-	SeqListPopFront(&sl);
-	SeqListPopFront(&sl);
-
-	SeqListPrint(&sl);
-
-	SeqListDestroy(&sl);
+	SLPopFront(&plist);
+	SLPopFront(&plist);
+	SLPopFront(&plist);
+	SLPopFront(&plist);
+	SLPrint(plist);
+	
+	SLPopFront(&plist);
+	SLPrint(plist);
+	
+	SLPopFront(&plist);
 }
 
-void test3(void)
+void SLTest3(void)
 {
-	SeqList sl = { 0 };
-	SeqListInit(&sl);
+	SListNode* plist = NULL;
 
-	SeqListPushBack(&sl, 1);
-	SeqListPushBack(&sl, 2);
-	SeqListPushBack(&sl, 3);
-	SeqListPushBack(&sl, 4);
-	SeqListPushBack(&sl, 5);
-	SeqListPushBack(&sl, 6);
+	SLPushBack(&plist, 1);
+	SLPushBack(&plist, 2);
+	SLPushBack(&plist, 3);
+	SLPushBack(&plist, 4);
+	SLPushBack(&plist, 5);
 
-	SeqListPrint(&sl);
-
-	int pos = SeqListFind(&sl, 3);
-	if (pos != -1)
+	SListNode* pos = NULL;
+	if ((pos = SListFind(plist, 3)) != NULL)
 	{
-		SeqListInsert(&sl, pos, 6);
-		SeqListInsert(&sl, pos, 7);
+
 	}
-
-	SeqListPrint(&sl);
-
-	SeqListErase(&sl, 2);
-	SeqListErase(&sl, 2);
-
-	SeqListPrint(&sl);
-
-	SeqListDestroy(&sl);
-}
-
-void test4(void)
-{
-	SeqList sl = { 0 };
-	SeqListInit(&sl);
-
-	SeqListInsert(&sl, sl.size, 1);
-	SeqListInsert(&sl, sl.size, 2);
-	SeqListInsert(&sl, sl.size, 3);
-	SeqListInsert(&sl, sl.size, 4);
 }
 
 int main()
 {
-	//test1();
-	//test2();
-	test3();
-	//test4();
+	//SLTest1();
+	//SLTest2();
+	SLTest3();
 	return 0;
 }
