@@ -61,12 +61,17 @@ void SLTest3(void)
 	SLPushBack(&plist, 3);
 	SLPushBack(&plist, 4);
 	SLPushBack(&plist, 5);
+	SLPrint(plist);
 
 	SListNode* pos = NULL;
-	if ((pos = SListFind(plist, 3)) != NULL)
+	if ((pos = SListFind(plist, 1)) != NULL)
 	{
-
+		SListEraseAfter(pos);
 	}
+
+	SLPrint(plist);
+	
+	SListDestroy(plist);
 }
 
 int main()

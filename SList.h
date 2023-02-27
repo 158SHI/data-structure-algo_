@@ -18,3 +18,6 @@ void SLPopBack(SListNode** pphead);
 void SLPushFront(SListNode** pphead, SListDataType x);
 void SLPopFront(SListNode** pphead);
 SListNode* SListFind(SListNode* plist, SListDataType x);
+void SListInsertAfter(SListNode* pos, SListDataType x);
+void SListEraseAfter(SListNode* pos);
+void SListDestroy(SListNode* plist);

@@ -82,6 +82,8 @@ void SLPopFront(SListNode** pphead)
 	*pphead = nextNode;
 }
 
+/*------------------------------------------------------*/
+
 SListNode* SListFind(SListNode* plist, SListDataType x)
 {
 	SListNode* cur = plist;
@@ -90,17 +92,35 @@ SListNode* SListFind(SListNode* plist, SListDataType x)
 		if (cur->data == x) {
 			return cur;
 		}
+		cur = cur->next;
 	}
 	return NULL;
 }
 
-/*
-// 单链表在pos位置之后插入x
-// 分析思考为什么不在pos位置之前插入？
-void SListInsertAfter(SListNode* pos, SLTDateType x);
-// 单链表删除pos位置之后的值
-// 分析思考为什么不删除pos位置？
-void SListEraseAfter(SListNode* pos);
-// 单链表的销毁
-void SListDestroy(SList* plist);
-*/
+void SListInsertAfter(SListNode* pos, SListDataType x)
+{
+	//空表情况暂未考虑
+	SListNode* newNode = BuySLNode(x);
+	SListNode* nextNode = pos->next;
+	pos->next = newNode;
+	newNode->next = nextNode;
+}
+
+void SListEraseAfter(SListNode* pos)
+{
+	SListNode* DelNode = pos->next;
+	assert(DelNode);//最后一个节点后面没有节点
+	SListNode* nextNode = DelNode->next;
+	free(DelNode);
+	DelNode = NULL;
+	pos->next = nextNode;
+}
+
+void SListDestroy(SListNode* plist)
+{
+	while (plist->next != NULL)
+	{
+		SListEraseAfter(plist);
+	}
+	free(plist);
+}
