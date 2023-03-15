@@ -20,6 +20,8 @@ void test1(void)
     ListPushFront(newListHead, 4);
     ListPushFront(newListHead, 5);
     ListPrint(newListHead);
+    ListDestory(newListHead);
+    newListHead = NULL; //使用者自行置空，避免野指针
 }
 
 void test2(void)
@@ -36,6 +38,8 @@ void test2(void)
     ListPopFront(newListHead);
     
     ListPrint(newListHead);
+    ListDestory(newListHead);
+    newListHead = NULL;
 }
 
 void test3(void)
@@ -62,10 +66,11 @@ void test3(void)
     if((pos = ListFind(newListHead, 30)))
     {
         ListErase(pos);
+        pos = NULL;
     }
     ListPrint(newListHead);
     ListDestory(newListHead);
-    
+    newListHead = NULL;
 }
 
 void test4(void)
@@ -76,6 +81,8 @@ void test4(void)
     ListPrint(newList);
     ListPushBack(newList, 1);
     ListPrint(newList);
+    ListDestory(newListHead);
+    newListHead = NULL;
 }
 
 int main()
