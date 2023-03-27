@@ -32,30 +32,86 @@ BTNode* CreatTree(void)
 
 void PreOrder(BTNode* root)
 {
-
+	if (root == NULL) {
+		printf("NULL ");
+		return;
+	}
+	printf("%d ", root->data);
+	PreOrder(root->leftChild);
+	PreOrder(root->rightChild);
 }
 
 void InOrder(BTNode* root)
 {
-
+	if (root == NULL) {
+		printf("NULL ");
+		return;
+	}
+	InOrder(root->leftChild);
+	printf("%d ", root->data);
+	InOrder(root->rightChild);
 }
 
 void PostOrder(BTNode* root)
 {
+	if (root == NULL) {
+		printf("NULL ");
+		return;
+	}
 
+	PostOrder(root->leftChild);
+	PostOrder(root->rightChild);
+	printf("%d ", root->data);
 }
 
-void TreeDepth(BTNode* root)
+int TreeDepth(BTNode* root)
 {
-	
+	if (root == NULL) {
+		return 0;
+	}
+
+	int leftDepth = TreeDepth(root->leftChild);
+	int rightDepth = TreeDepth(root->rightChild);
+
+	return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
 }
 
-void TreeSize(BTNode* root)
+int TreeSize(BTNode* root)
 {
+	if (root == NULL) {
+		return 0;
+	}
 
+	return TreeSize(root->leftChild) + TreeSize(root->rightChild) + 1;
 }
 
-void TreeKLevel(BTNode* root, int k)
+int TreeKLevel(BTNode* root, int k)
 {
+	if (root == NULL) {
+		return 0;
+	}
+	if (k == 1) {
+		return 1;
+	}
+	return TreeKLevel(root->leftChild, k - 1) +
+		TreeKLevel(root->rightChild, k - 1);
+}
 
+bool isSingleValTree(BTNode* root)
+{
+	if (root == NULL) {
+		return true;
+	}
+
+	if (root->leftChild && 
+			root->data != root->leftChild->data) {
+		return false;
+	}
+	if (root->rightChild && 
+			root->data != root->rightChild->data) {
+		return false;
+	}
+
+	return isSingleValTree(root->leftChild) && 
+			isSingleValTree(root->rightChild);
 }
