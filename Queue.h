@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef int QueueDataType;
+typedef struct BTNode* QueueDataType;
 
 typedef struct QueueNode
 {

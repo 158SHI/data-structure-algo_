@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
 #include "Binarytree.h"
+#include"Queue.h"
 
 BTNode* BuyNode(BTDataTypt x)
 {
@@ -114,4 +115,25 @@ bool isSingleValTree(BTNode* root)
 
 	return isSingleValTree(root->leftChild) && 
 			isSingleValTree(root->rightChild);
+}
+
+void LevelOrder(BTNode* root)
+{
+	Queue q;
+	QueueInit(&q);
+	if (root != NULL) {
+		QueuePush(&q, root);
+	}
+	while (!QueueEmpty(&q))
+	{
+		BTNode* front = QueueFront(&q);
+		QueuePop(&q);
+		printf("%d ", front->data);
+		if (front->leftChild != NULL) {
+			QueuePush(&q, front->leftChild);
+		}
+		if (front->rightChild != NULL) {
+			QueuePush(&q, front->rightChild);
+		}
+	}
 }

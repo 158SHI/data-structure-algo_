@@ -26,3 +26,5 @@ int TreeSize(BTNode* root);
 int TreeKLevel(BTNode* root, int k);
 
 bool isSingleValTree(BTNode* root);
+
+void LevelOrder(BTNode* root);
