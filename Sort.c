@@ -176,16 +176,43 @@ void BubbleSort(int* a, int n)
 	}
 }
 
-// 快速排序hoare版本
-void PartSort1(int* a, int left, int right)
+int GetMIdI(int*a, int left, int right)
 {
-	int begin = left;
-	int end = right;
-	if (begin >= end) {
-		return;
+	int mid = (left + right) / 2;
+	if (a[left] > a[mid])
+	{
+		if (a[mid] > a[right]) {
+			return mid;
+		}
+		else if (a[right] > a[left]) {
+			return left;
+		}
+		else {
+			return right;
+		}
 	}
+	else //a[left] <= a[mid]
+	{
+		if (a[mid] < a[right]) {
+			return mid;
+		}
+		else if (a[right] < a[left]) {
+			return left;
+		}
+		else {
+			return right;
+		}
+	}
+}
 
-	int keyi = begin;
+// 快速排序hoare版本
+int PartSort1(int* a, int left, int right)
+{
+	//三数取中
+	int midI = GetMIdI(a, left, right);
+	Swap(a + midI, a + left);
+
+	int keyi = left;
 	while (left < right)
 	{
 		while (left < right && a[right] >= a[keyi]) {
@@ -196,8 +223,81 @@ void PartSort1(int* a, int left, int right)
 		}
 		Swap(a + left, a + right);
 	}
-	Swap(a + keyi, a + right);
+	Swap(a + keyi, a + left);
+	keyi = left;
 
-	PartSort1(a, begin, left - 1);
-	PartSort1(a, left + 1, end);
+	return keyi;
+}
+
+// 快速排序挖坑法
+int PartSort2(int* a, int left, int right)
+{
+	int midI = GetMIdI(a, left, right);
+	Swap(a + midI, a + left);
+
+	int key = a[left];
+	int pit = left;
+
+	while (left < right)
+	{
+		while (left < right && a[right] >= key) {
+			right--;
+		}
+		a[pit] = a[right];
+		pit = right;
+		while (left < right && a[left] <= key) {
+			left++;
+		}
+		a[pit] = a[left];
+		pit = left;
+	}
+	a[pit] = key;
+
+	return pit;
+}
+
+// 快速排序前后指针法
+int PartSort3(int* a, int left, int right)
+{
+	int midI = GetMIdI(a, left, right);
+	Swap(a + midI, a + left);
+
+	int cur = left;
+	int prev = left;
+
+	int keyi = left;
+	while (cur <= right)
+	{
+		if (a[cur] < a[keyi])
+		{
+			prev++;
+			Swap(a + prev, a + cur);
+			cur++;
+		}
+		else {
+			cur++;
+		}
+	}
+	Swap(a + keyi, a + prev);
+	keyi = prev;
+
+	return keyi;
+}
+
+//快排递归实现
+void QuickSort(int* a, int left, int right)
+{
+	if (left >= right) {
+		return;
+	}
+
+	int keyi = PartSort3(a, left, right);
+	QuickSort(a, left, keyi - 1);
+	QuickSort(a, keyi + 1, right);
+}
+
+//快排非递归实现
+void QuickSortNonR(int* a, int left, int right)
+{
+
 }
