@@ -70,7 +70,7 @@ void InsertSort(int* a, int n)
 
 void ShellSort(int* a, int n)
 {
-	int gap = n / 2;
+	int gap = n;
 	while (gap > 1)
 	{
 		gap = gap / 3 + 1;
