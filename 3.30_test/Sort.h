@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
+#include <string.h>
 
 void PrintArr(int* nums, int n);
 
@@ -31,3 +33,9 @@ void QuickSort(int* a, int left, int right);
 
 // 快速排序 非递归实现
 void QuickSortNonR(int* a, int left, int right);
+
+
+void MergeSort(int* a, int n);
+void MergeSortNonR(int* a, int n);
+
+void CountSort(int* a, int n);

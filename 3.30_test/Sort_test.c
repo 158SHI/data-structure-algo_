@@ -60,6 +60,33 @@ void TestQuickSortNonR(void)
 	PrintArr(arr, sz);
 }
 
+void TestMergeSort(void)
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,0,1,1,-1,-2,-3,-3 };
+	//int arr[] = { 6,4,2,1,8,5 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	MergeSort(arr, sz);
+	PrintArr(arr, sz);
+}
+
+void TestMergeSortNonR(void)
+{
+	int arr[] = { 9,8,7,6,5,4,3,2,0,1,1,-1,-2,-3,-3 };
+	//int arr[] = { 6,4,2,1,8,3,7 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	MergeSortNonR(arr, sz);
+	PrintArr(arr, sz);
+}
+
+void TestCountSort(void)
+{
+	//int arr[] = { 9,8,7,6,5,4,3,2,0,1,1,-1,-2,-3,-3 };
+	int arr[] = { 6,4,2,1,8,3,7 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	CountSort(arr, sz);
+	PrintArr(arr, sz);
+}
+
 int main()
 {
 	//TestInsertSort();
@@ -67,7 +94,10 @@ int main()
 	//TestSelectSort();
 	//TestHeapSort();
 	//TestBubbleSort();
-	TestQuickSort();
-	TestQuickSortNonR();
+	//TestQuickSort();
+	//TestQuickSortNonR();
+	TestMergeSort();
+	TestMergeSortNonR();
+	TestCountSort();
 	return 0;
 }

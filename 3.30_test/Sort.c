@@ -337,3 +337,124 @@ void QuickSortNonR(int* a, int left, int right)
 
 	StackDestroy(&sT);
 }
+
+void _MergeSort(int* a, int left, int right, int* tmp)
+{
+	if (left >= right) {
+		return;
+	}
+
+	int mid = (left + right) / 2;
+	//[left, mid] [mid + 1, right]
+	_MergeSort(a, left, mid, tmp);
+	_MergeSort(a, mid + 1, right, tmp);
+
+	int begin1 = left;
+	int end1 = mid;
+	int begin2 = mid + 1;
+	int end2 = right;
+	int i = left;
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] <= a[begin2]) {
+			tmp[i++] = a[begin1++];
+		}
+		else {
+			tmp[i++] = a[begin2++];
+		}
+	}
+
+	while (begin1 <= end1) {
+		tmp[i++] = a[begin1++];
+	}
+	while (begin2 <= end2) {
+		tmp[i++] = a[begin2++];
+	}
+
+	memcpy(a + left, tmp + left, sizeof(int) * (right - left + 1));
+}
+
+void MergeSort(int* a, int n)
+{
+	int left = 0;
+	int right = n - 1;
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	assert(tmp);
+	_MergeSort(a, left, right, tmp);
+}
+
+void MergeSortNonR(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	assert(tmp);
+
+	int gap = 1;
+	while (gap < n)
+	{
+		for (int i = 0; i < n; i += 2 * gap)
+		{
+			int begin1 = i;
+			int end1 = i + gap - 1;
+			int begin2 = i + gap;
+			int end2 = i + 2 * gap - 1;
+			
+			//不归并
+			if (end1 >= n || begin2 >= n) {
+				break;
+			}
+			//修正end2，继续归并
+			else if (end2 >= n) {
+				end2 = n - 1;
+			}
+
+			int j = begin1;
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] <= a[begin2]) {
+					tmp[j++] = a[begin1++];
+				}
+				else {
+					tmp[j++] = a[begin2++];
+				}
+			}
+
+			while (begin1 <= end1) {
+				tmp[j++] = a[begin1++];
+			}
+			while (begin2 <= end2) {
+				tmp[j++] = a[begin2++];
+			}
+
+			//边归并边拷贝
+			memcpy(a + i, tmp + i,
+				sizeof(int) * (end2 - i + 1));
+		}
+		gap *= 2;
+	}
+}
+
+void CountSort(int* a, int n)
+{
+	int max = a[0];
+	int min = a[0];
+	for (int i = 0; i < n; i++)
+	{
+		max = a[i] > max ? a[i] : max;
+		min = a[i] < min ? a[i] : min;
+	}
+	int range = max - min + 1;
+	int* CountA = (int*)calloc(range, sizeof(int));
+	assert(CountA);
+
+	for (int i = 0; i < n; i++) {
+		CountA[a[i] - min]++;
+	}
+
+	int index = 0;
+	for (int i = 0; i < range; i++)
+	{
+		while (CountA[i]--) {
+			a[index++] = i + min;
+		}
+	}
+}
